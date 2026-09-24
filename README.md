@@ -114,6 +114,12 @@ Declared in AndroidManifest:
 - android.permission.ACCESS_FINE_LOCATION
 - android.permission.ACCESS_COARSE_LOCATION
 
+```dotenv
+adb shell pm grant --user 0 com.aistudio.gpslivemap.vntxq android.permission.ACCESS_COARSE_LOCATION
+adb shell pm grant --user 0 com.aistudio.gpslivemap.vntxq android.permission.ACCESS_FINE_LOCATION
+adb shell dumpsys package com.aistudio.gpslivemap.vntxq | findstr /I "ACCESS_COARSE_LOCATION ACCESS_FINE_LOCATION granted=true"
+```
+
 ## Secrets and API Key Management
 
 This project uses the Secrets Gradle Plugin with these files:

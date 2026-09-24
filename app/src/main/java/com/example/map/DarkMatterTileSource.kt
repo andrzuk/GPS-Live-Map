@@ -8,7 +8,7 @@ import org.osmdroid.util.MapTileIndex
  * Provides a modern dark mode map displaying high contrast streets and street names
  * dynamically scaled by zoom level, with zero commercial POI clutter.
  */
-object DarkMatterTileSource : OnlineTileSourceBase(
+class DarkMatterTileSource(private val apiKey: String) : OnlineTileSourceBase(
     "CartoDBDarkMatter",
     0,
     20,
@@ -26,6 +26,6 @@ object DarkMatterTileSource : OnlineTileSourceBase(
         val zoom = MapTileIndex.getZoom(pMapTileIndex)
         val x = MapTileIndex.getX(pMapTileIndex)
         val y = MapTileIndex.getY(pMapTileIndex)
-        return "$baseUrl$zoom/$x/$y$mImageFilenameEnding"
+        return "$baseUrl$zoom/$x/$y$mImageFilenameEnding?api_key=$apiKey"
     }
 }
