@@ -14,5 +14,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Keep local secrets out of git
 .env
+.env.*
+!.env.example
 debug.keystore
+*.jar
