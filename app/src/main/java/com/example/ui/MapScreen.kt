@@ -56,10 +56,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.BuildConfig
 import com.example.map.CenteredLocationOverlay
 import com.example.map.CenteredMapView
-import com.example.map.DarkMatterTileSource
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
@@ -124,20 +122,8 @@ fun MapScreen(
                 .fillMaxSize()
                 .testTag("live_gps_map_view"),
             factory = { ctx ->
-                val cartoApiKeyRaw = try {
-                    BuildConfig.CARTO_API_KEY
-                } catch (_: Throwable) {
-                    ""
-                }
-                val cartoApiKey = normalizeConfigValue(cartoApiKeyRaw)
-                val useCartoDarkTiles = isValidCartoApiKey(cartoApiKey)
-
                 CenteredMapView(ctx).apply {
-                    if (useCartoDarkTiles) {
-                        setTileSource(DarkMatterTileSource(cartoApiKey))
-                    } else {
-                        setTileSource(TileSourceFactory.MAPNIK)
-                    }
+                    setTileSource(TileSourceFactory.MAPNIK)
                     overlays.add(locationOverlay)
 
                     val defaultGeo = GeoPoint(52.2297, 21.0122)
@@ -334,30 +320,4 @@ fun MapScreen(
             viewModel.stopTracking()
         }
     }
-}
-
-private fun normalizeConfigValue(raw: String): String {
-    val trimmed = raw.trim()
-    if (trimmed.length >= 2) {
-        val isDoubleQuoted = trimmed.first() == '"' && trimmed.last() == '"'
-        val isSingleQuoted = trimmed.first() == '\'' && trimmed.last() == '\''
-        if (isDoubleQuoted || isSingleQuoted) {
-            return trimmed.substring(1, trimmed.length - 1).trim()
-        }
-    }
-    return trimmed
-}
-
-private fun isValidCartoApiKey(value: String): Boolean {
-    if (value.isBlank()) return false
-    val placeholders = listOf(
-        "MY_CARTO_API_KEY",
-        "YOUR_CARTO_API_KEY",
-        "CARTO_API_KEY",
-        "PLACEHOLDER",
-        "CHANGEME",
-        "REPLACE_ME",
-        "TODO"
-    )
-    return placeholders.none { value.equals(it, ignoreCase = true) }
 }

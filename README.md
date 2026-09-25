@@ -50,7 +50,7 @@ GEMINI_API_KEY=YOUR_REAL_GEMINI_API_KEY
 - Live GPS tracking with fused provider first and native LocationManager fallback.
 - Center-locked map behavior: position remains centered, map orientation forced to north.
 - Smooth gesture zoom with custom map view behavior.
-- Dark map tile source (CartoDB Dark Matter).
+- OpenStreetMap map tiles (MAPNIK via osmdroid).
 - Top HUD pill showing grounded street/location information.
 - Open current grounded location directly in Google Maps.
 - Graceful fallback when Gemini API key is missing or placeholder.
@@ -100,7 +100,6 @@ GEMINI_API_KEY=YOUR_REAL_GEMINI_API_KEY
 - app/src/main/java/com/example/location/LocationTracker.kt
 - app/src/main/java/com/example/map/CenteredMapView.kt
 - app/src/main/java/com/example/map/CenteredLocationOverlay.kt
-- app/src/main/java/com/example/map/DarkMatterTileSource.kt
 - app/src/main/java/com/example/ai/GeminiApiService.kt
 - app/src/main/java/com/example/ai/GeminiModels.kt
 - app/src/main/java/com/example/ai/GoogleMapsGroundingRepository.kt
@@ -259,5 +258,5 @@ If your feature set needs Firebase config file, add app/google-services.json.
 
 ## License and attributions
 
-- Map tiles: CARTO Dark Matter
+- Map tiles: OpenStreetMap MAPNIK
 - Base map data: OpenStreetMap contributors
